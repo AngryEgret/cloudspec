@@ -1,0 +1,9 @@
+---
+tokens:
+  prod:
+    access_key: abc123
+    secret_key: xyz789
+  dev:
+    access_key: def456
+    secret_key: uvw456
+
