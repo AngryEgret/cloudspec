@@ -23,7 +23,14 @@ module SkimReaper
       end
     end
 
+    def regions(credentials)
+      SkimReaper.log.debug 'getting regions ...'
+      aws_client = compute_client(credentials)
+      aws_client.describe_regions.body['regionInfo'].map { |region| region['regionName'] }
+    end
+
     def compute_client(credentials = { 'access_key' => '', 'secret_key' => '' }, region = nil)
+      SkimReaper.log.debug 'creating compute client ...'
       Fog::Compute.new(
         provider:               'AWS',
         aws_access_key_id:      credentials['access_key'],
@@ -33,6 +40,7 @@ module SkimReaper
     end
 
     def mock?
+      SkimReaper.log.debug 'Fog Mocking enabled.'
       Fog.mock! if $OPTIONS[:mock]
     end
   end

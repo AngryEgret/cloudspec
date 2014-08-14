@@ -18,7 +18,9 @@
 require 'simplecov'
 require 'skim_reaper'
 
-SimpleCov.start
+Fog.mock!
+
+#SimpleCov.start
 
 SimpleCov.at_exit do
   File.open(File.join(SimpleCov.coverage_path, 'coverage_percent.txt'), 'w') do |f|

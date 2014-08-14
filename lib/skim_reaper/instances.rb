@@ -18,21 +18,26 @@ module SkimReaper
       include InstanceRules
     end
 
+    def evaluate_instance(instance)
+      SkimReaper.log.debug "Evaluating instance #{instance.id} ..."
+      begin
+        evaluate(instance)
+      rescue RSpec::Expectations::ExpectationNotMetError => e
+        SkimReaper.log.error "[#{account_name}][#{region}][#{instance.id}] - " + e.to_s
+      end
+    end
+
+    def instances(credentials)
+      SkimReaper.log.debug 'getting instances ...'
+      aws_client = compute_client(credentials, region)
+      aws_client.servers
+    end
+
     def process_account(account_name, credentials = { 'access_key' => nil, 'secret_key' => nil })
-      aws_client = compute_client(credentials)
-
-      regions = aws_client.describe_regions.body['regionInfo'].map { |region| region['regionName'] }
-
-      regions.each do |region|
-        aws_client = compute_client(credentials, region)
-        instances = aws_client.servers
-
-        instances.each do |instance|
-          begin
-            evaluate(instance)
-          rescue RSpec::Expectations::ExpectationNotMetError => e
-            SkimReaper.log.error "[#{account_name}][#{region}][#{instance.id}] - " + e.to_s
-          end
+      SkimReaper.log.debug "processing account #{account_name} ..."
+      regions(credentials).each do |region|
+        instances(credentials).each do |instance|
+          evaluate_instance(instance)
         end
       end
     end
