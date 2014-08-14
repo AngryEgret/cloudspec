@@ -22,7 +22,7 @@ module SkimReaper
   end
 
   def self.build_scaffold(path)
-    FileUtils.cp_r File.join root, './config', path
-    FileUtils.cp_r File.join root, './rules', path
+    FileUtils.cp_r File.join(root, './config'), path
+    FileUtils.cp_r File.join(root, './rules'), path
   end
 end

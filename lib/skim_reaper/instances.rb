@@ -1,11 +1,10 @@
 module SkimReaper
   class Instances < Base
-
     def harvest
       load_rules
       SkimReaper::Instances.include_rules
 
-      SkimReaper.log.warn "harvesting..."
+      SkimReaper.log.warn 'harvesting...'
 
       accounts = SkimReaper.config['aws']
 
@@ -15,14 +14,14 @@ module SkimReaper
     end
 
     def self.include_rules
-      SkimReaper.log.debug "including rules ..."
+      SkimReaper.log.debug 'including rules ...'
       include InstanceRules
     end
 
-    def process_account(account_name, credentials = {'access_key' => nil, 'secret_key' => nil})
+    def process_account(account_name, credentials = { 'access_key' => nil, 'secret_key' => nil })
       aws_client = compute_client(credentials)
 
-      regions = aws_client.describe_regions.body['regionInfo'].map{|region|region['regionName']}
+      regions = aws_client.describe_regions.body['regionInfo'].map { |region| region['regionName'] }
 
       regions.each do |region|
         aws_client = compute_client(credentials, region)

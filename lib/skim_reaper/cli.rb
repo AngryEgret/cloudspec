@@ -3,10 +3,13 @@ require 'thor'
 module SkimReaper
   class CLI < Thor
     class_option :verbose, type: :boolean, desc: 'Enable verbose logging', aliases: '-v'
-    class_option :yaml, type: :string, required: true, aliases: '-y', desc: 'The path to the clould credentials yaml file'
-    class_option :rules, type: :string, required: true, aliases: '-r', desc: 'The path to the rules'
-    class_option :mock, type: :boolean, desc: 'Mock all cloud calls', aliases: '-m'
-    class_option :dry_run, type: :boolean, desc: 'Non-destructive run', aliases: '-d'
+
+    def self.shared_options
+      method_option :mock, type: :boolean, desc: 'Mock all cloud calls', aliases: '-m'
+      method_option :dry_run, type: :boolean, desc: 'Non-destructive run', aliases: '-d'
+      method_option :yaml, type: :string, required: true, aliases: '-y', desc: 'The path to the clould credentials yaml file'
+      method_option :rules, type: :string, required: true, aliases: '-r', desc: 'The path to the rules'
+    end
 
     no_tasks do
       def validate
@@ -20,28 +23,28 @@ module SkimReaper
     end
 
     desc 'init', 'Initialize a rules directory and credentials file'
+    method_option :path, type: :string, required: true, aliases: '-p', desc: 'The path to create scaffolding within'
     def init
-      method_option :path, type: :string, required: true, aliases: '-p', desc: 'The path to create scaffolding within'
-
       fail SkimReaper::FileNotFoundError, "Could not find initialization path '#{options[:path]}'" unless Dir.exist? options[:path]
 
-      SkimReaper::build_scaffold(options[:path])
+      SkimReaper.build_scaffold(options[:path])
     rescue => e
-        SkimReaper.log.error e.to_s
-        exit 1
+      SkimReaper.log.error e.to_s
+      exit 1
     end
 
     desc 'instances', 'Harvest AWS instances'
+    shared_options
     def instances
       validate
 
       instances = SkimReaper::Instances.new
-      SkimReaper.log.info "Beginning instance harvest ..."
+      SkimReaper.log.info 'Beginning instance harvest ...'
       instances.harvest
-      SkimReaper.log.info "Instance harvest complete."
+      SkimReaper.log.info 'Instance harvest complete.'
     rescue => e
-        SkimReaper.log.error e.to_s
-        exit 1
+      SkimReaper.log.error e.to_s
+      exit 1
     end
   end
 end
