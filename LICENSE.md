@@ -1,6 +1,8 @@
-Copyright (c) 2014 Ryan Greget
+CloudSpec is distributed under the following license:
+----------------------------------------------------
 
-MIT License
+Copyright (c) 2014 Lookout, Inc.
+https://www.lookout.com/about/contact
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
