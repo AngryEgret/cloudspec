@@ -1,11 +1,11 @@
 require 'logger'
 require 'yaml'
 
-require 'skim_reaper/version'
-require 'skim_reaper/base'
-require 'skim_reaper/instances'
+require 'cloudspec/version'
+require 'cloudspec/base'
+require 'cloudspec/instances'
 
-module SkimReaper
+module CloudSpec
   InvalidCLIOptionsError = Class.new(Exception)
   FileNotFoundError = Class.new(Exception)
 
@@ -22,7 +22,7 @@ module SkimReaper
   end
 
   def self.build_scaffold(path)
-    FileUtils.cp_r File.join root, './config', path
-    FileUtils.cp_r File.join root, './rules', path
+    FileUtils.cp_r File.join(root, './config'), path
+    FileUtils.cp_r File.join(root, './rules'), path
   end
 end

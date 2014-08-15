@@ -44,8 +44,8 @@ module InstanceRules
 # >
 
   def evaluate(instance)
-    expect(instance.tags).to have_key('Name'), "expected instance.tags to have key 'Name'"
+    expect(instance.tags).to have_key('Name'), 'expected instance.tags to have key "Name"'
     expect(instance.flavor_id).to eq('m3.large'), "expected instance.flavor_id to equal 'm3.large', got #{instance.flavor_id}"
-    expect(instance.vpc_id).to_not be_nil, "expected instance to belong to VPC"
+    expect(instance.vpc_id).to_not be_nil, 'expected instance to belong to VPC'
   end
 end

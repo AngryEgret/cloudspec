@@ -16,9 +16,11 @@
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 
 require 'simplecov'
-require 'skim_reaper'
+require 'cloudspec'
 
-SimpleCov.start
+Fog.mock!
+
+#SimpleCov.start
 
 SimpleCov.at_exit do
   File.open(File.join(SimpleCov.coverage_path, 'coverage_percent.txt'), 'w') do |f|
