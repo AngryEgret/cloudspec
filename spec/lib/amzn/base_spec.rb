@@ -1,5 +1,5 @@
-describe CloudSpec::Base do
-  let(:base){ CloudSpec::Base.new }
+describe CloudSpec::AMZN::Base do
+  let(:base){ CloudSpec::AMZN::Base.new }
   let(:credentials){ { 'access_key' => '', 'secret_key' => '' } }
 
   before(:each) do
@@ -15,9 +15,9 @@ describe CloudSpec::Base do
 
   describe '.initialize' do
     it 'should call the mock? method' do
-      expect_any_instance_of(CloudSpec::Base).to receive(:mock?)
+      expect_any_instance_of(CloudSpec::AMZN::Base).to receive(:mock?)
 
-      CloudSpec::Base.new
+      CloudSpec::AMZN::Base.new
     end
   end
 

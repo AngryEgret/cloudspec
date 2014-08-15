@@ -1,4 +1,5 @@
-module InstanceRules
+module AMZN
+  module InstanceRules
 # <Fog::Compute::AWS::Server
 #   id="i-cdc994e7",
 #   ami_launch_index=0,
@@ -43,9 +44,10 @@ module InstanceRules
 #   vpc_id=nil
 # >
 
-  def evaluate(instance)
-    expect(instance.tags).to have_key('Name'), 'expected instance.tags to have key "Name"'
-    expect(instance.flavor_id).to eq('m3.large'), "expected instance.flavor_id to equal 'm3.large', got #{instance.flavor_id}"
-    expect(instance.vpc_id).to_not be_nil, 'expected instance to belong to VPC'
+    def evaluate(instance)
+      expect(instance.tags).to have_key('Name'), 'expected instance.tags to have key "Name"'
+      expect(instance.flavor_id).to eq('m3.large'), "expected instance.flavor_id to equal 'm3.large', got #{instance.flavor_id}"
+      expect(instance.vpc_id).to_not be_nil, 'expected instance to belong to VPC'
+    end
   end
 end

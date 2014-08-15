@@ -33,18 +33,19 @@ module CloudSpec
       exit 1
     end
 
+    namespace :amzn
     desc 'instances', 'Harvest AWS instances'
     shared_options
     def instances
       validate
 
-      instances = CloudSpec::Instances.new
+      instances = CloudSpec::AMZN::Instances.new
       CloudSpec.log.info 'Beginning instance harvest ...'
       instances.harvest
       CloudSpec.log.info 'Instance harvest complete.'
-    rescue => e
-      CloudSpec.log.error e.to_s
-      exit 1
+    #rescue => e
+    #  CloudSpec.log.error e.to_s
+    #  exit 1
     end
   end
 end

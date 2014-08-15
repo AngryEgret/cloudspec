@@ -2,8 +2,9 @@ require 'logger'
 require 'yaml'
 
 require 'cloudspec/version'
-require 'cloudspec/base'
-require 'cloudspec/instances'
+
+require 'cloudspec/amzn/base'
+require 'cloudspec/amzn/instances'
 
 module CloudSpec
   InvalidCLIOptionsError = Class.new(Exception)

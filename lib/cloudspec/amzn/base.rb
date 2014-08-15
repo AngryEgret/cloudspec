@@ -1,7 +1,7 @@
 require 'fog'
 require 'rspec/expectations'
 
-module CloudSpec
+module CloudSpec::AMZN
   class Base
     include RSpec::Matchers
 
@@ -18,7 +18,7 @@ module CloudSpec
       CloudSpec.log.debug 'loading rules ...'
 
       rules_path = File.expand_path(CloudSpec.options[:rules])
-      Dir["#{rules_path}/**/*.rb"].each do |file|
+      Dir["#{rules_path}/amzn/**/*.rb"].each do |file|
         require file
       end
     end
