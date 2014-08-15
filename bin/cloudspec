@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+
+$LOAD_PATH.unshift File.dirname(__FILE__) + '/../lib'
+
+require 'cloudspec'
+require 'cloudspec/cli'
+
+CloudSpec::CLI.start
+exit 0
