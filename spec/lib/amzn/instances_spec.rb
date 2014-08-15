@@ -1,5 +1,5 @@
-describe CloudSpec::Instances do
-  let(:instances){ CloudSpec::Instances.new }
+describe CloudSpec::AMZN::Instances do
+  let(:instances){ CloudSpec::AMZN::Instances.new }
   let(:credentials){ { 'access_key' => '', 'secret_key' => '' } }
 
 
@@ -20,7 +20,7 @@ describe CloudSpec::Instances do
   describe '.harvest' do
     it 'should load the rules' do
       expect(instances).to receive(:load_rules)
-      expect(CloudSpec::Instances).to receive(:include_rules)
+      expect(CloudSpec::AMZN::Instances).to receive(:include_rules)
       expect(instances).to receive(:process_account).at_least(:once)
 
       instances.harvest
@@ -30,7 +30,7 @@ describe CloudSpec::Instances do
   describe '.include_rules' do
     it 'should implement the evaluate method from InstanceRules' do
       instances.load_rules
-      CloudSpec::Instances.include_rules
+      CloudSpec::AMZN::Instances.include_rules
 
       expect( instances ).to respond_to :evaluate
     end
