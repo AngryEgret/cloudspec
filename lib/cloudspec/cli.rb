@@ -13,12 +13,12 @@ module CloudSpec
 
     no_tasks do
       def validate
-        $OPTIONS = options
+        CloudSpec.options(options)
 
-        $OPTIONS[:verbose] ? CloudSpec.log.level = Logger::DEBUG : CloudSpec.log.level = Logger::INFO
+        CloudSpec.options[:verbose] ? CloudSpec.log.level = Logger::DEBUG : CloudSpec.log.level = Logger::INFO
 
-        fail CloudSpec::FileNotFoundError, "Could not find YAML config file '#{$OPTIONS[:yaml]}'" unless File.exist? $OPTIONS[:yaml]
-        fail CloudSpec::FileNotFoundError, "Could not find rules path '#{$OPTIONS[:rules]}'" unless Dir.exist? $OPTIONS[:rules]
+        fail CloudSpec::FileNotFoundError, "Could not find YAML config file '#{CloudSpec.options[:yaml]}'" unless File.exist? CloudSpec.options[:yaml]
+        fail CloudSpec::FileNotFoundError, "Could not find rules path '#{CloudSpec.options[:rules]}'" unless Dir.exist? CloudSpec.options[:rules]
       end
     end
 

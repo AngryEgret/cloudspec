@@ -14,7 +14,11 @@ module CloudSpec
   end
 
   def self.config
-    @config ||= YAML.load_file($OPTIONS[:yaml])
+    @config ||= YAML.load_file(CloudSpec.options[:yaml])
+  end
+
+  def self.options(options = nil)
+    @options ||= options
   end
 
   def self.root

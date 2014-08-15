@@ -3,17 +3,20 @@ Feature: Harvest instances
   A user should provide the incidents command and path to the creditials
 
   Scenario: Correctly run the instances command
-    When I run `cloudspec instances --yaml=/dev/null --rules=/tmp --mock`
+    Given I run `cloudspec init --path=.`
+    When I run `cloudspec instances --yaml=./config/template.yml --rules=./rules --mock`
     Then the exit status should be 0
     And the output should contain "INFO -- : Beginning instance harvest ..."
     And the output should contain "INFO -- : Instance harvest complete."
 
-    When I run `cloudspec instances -y /dev/null -r /tmp --mock`
+    Given I run `cloudspec init --path=.`
+    When I run `cloudspec instances -y ./config/template.yml -r ./rules --mock`
     Then the exit status should be 0
     And the output should contain "INFO -- : Beginning instance harvest ..."
     And the output should contain "INFO -- : Instance harvest complete."
 
   Scenario: Run the instances command with no parameters
+    Given I run `cloudspec init --path=.`
     When I run `cloudspec instances --mock`
     Then the exit status should be 0
     And the output should contain "No value provided for required options"
@@ -21,11 +24,13 @@ Feature: Harvest instances
     And the output should contain "--rules"
 
   Scenario: Run the instances command with a missing credentials file
-    When I run `cloudspec instances --yaml=/fail --rules=/tmp --mock`
+    Given I run `cloudspec init --path=.`
+    When I run `cloudspec instances --yaml=/fail --rules=./rules --mock`
     Then the exit status should be 1
     And the output should contain "Could not find YAML config file '/fail' (CloudSpec::FileNotFoundError)"
 
   Scenario: Run the instances command with a missing rules path
-    When I run `cloudspec instances --yaml=/dev/null --rules=/fail --mock`
+    Given I run `cloudspec init --path=.`
+    When I run `cloudspec instances --yaml=./config/template.yml --rules=/fail --mock`
     Then the exit status should be 1
     And the output should contain "Could not find rules path '/fail' (CloudSpec::FileNotFoundError)"

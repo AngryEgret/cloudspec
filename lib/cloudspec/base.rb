@@ -17,7 +17,7 @@ module CloudSpec
     def load_rules
       CloudSpec.log.debug 'loading rules ...'
 
-      rules_path = File.expand_path($OPTIONS[:rules])
+      rules_path = File.expand_path(CloudSpec.options[:rules])
       Dir["#{rules_path}/**/*.rb"].each do |file|
         require file
       end
@@ -40,8 +40,8 @@ module CloudSpec
     end
 
     def mock?
-      CloudSpec.log.debug 'Fog Mocking enabled.'
-      Fog.mock! if $OPTIONS[:mock]
+      CloudSpec.log.debug 'Checking Mocking settings ...'
+      Fog.mock! if CloudSpec.options[:mock]
     end
   end
 end
