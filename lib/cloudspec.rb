@@ -5,6 +5,7 @@ require 'cloudspec/version'
 
 require 'cloudspec/amzn/base'
 require 'cloudspec/amzn/instances'
+require 'cloudspec/amzn/security_groups'
 
 module CloudSpec
   InvalidCLIOptionsError = Class.new(Exception)

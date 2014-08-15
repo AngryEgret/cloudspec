@@ -1,8 +1,8 @@
 require 'thor'
 
 module CloudSpec
-  class CLI < Thor
-    class_option :verbose, type: :boolean, desc: 'Enable verbose logging', aliases: '-v'
+  class AMZN_CLI < Thor
+    namespace :amazon
 
     def self.shared_options
       method_option :mock, type: :boolean, desc: 'Mock all cloud calls', aliases: '-m'
@@ -22,6 +22,50 @@ module CloudSpec
       end
     end
 
+    desc 'all', 'Harvest all AWS objects'
+    shared_options
+    def all
+      validate
+
+      invoke :instances
+      invoke :groups
+    rescue => e
+      CloudSpec.log.error e.to_s
+      exit 1
+    end
+
+    desc 'instances', 'Harvest AWS Instances'
+    shared_options
+    def instances
+      validate
+
+      instances = CloudSpec::AMZN::Instances.new
+      CloudSpec.log.info 'Beginning instance harvest ...'
+      instances.harvest
+      CloudSpec.log.info 'Instance harvest complete.'
+    rescue => e
+      CloudSpec.log.error e.to_s
+      exit 1
+    end
+
+    desc 'groups', 'Harvest AWS Security Groups'
+    shared_options
+    def groups
+      validate
+
+      groups = CloudSpec::AMZN::SecurityGroups.new
+      CloudSpec.log.info 'Beginning group harvest ...'
+      groups.harvest
+      CloudSpec.log.info 'Group harvest complete.'
+    rescue => e
+      CloudSpec.log.error e.to_s
+      exit 1
+    end
+  end
+
+  class CLI < Thor
+    class_option :verbose, type: :boolean, desc: 'Enable verbose logging', aliases: '-v'
+
     desc 'init', 'Initialize a rules directory and credentials file'
     method_option :path, type: :string, required: true, aliases: '-p', desc: 'The path to create scaffolding within'
     def init
@@ -33,19 +77,7 @@ module CloudSpec
       exit 1
     end
 
-    namespace :amzn
-    desc 'instances', 'Harvest AWS instances'
-    shared_options
-    def instances
-      validate
-
-      instances = CloudSpec::AMZN::Instances.new
-      CloudSpec.log.info 'Beginning instance harvest ...'
-      instances.harvest
-      CloudSpec.log.info 'Instance harvest complete.'
-    #rescue => e
-    #  CloudSpec.log.error e.to_s
-    #  exit 1
-    end
+    desc 'amazon SUBCOMMAND ...ARGS', 'Evaluate Amazon Cloud Objects'
+    subcommand "amazon", CloudSpec::AMZN_CLI
   end
 end

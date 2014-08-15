@@ -14,12 +14,38 @@ module CloudSpec::AMZN
       fail NotImplementedError, 'This method should be defined in the child class'
     end
 
+    def include_rules
+      fail NotImplementedError, 'This method should be defined in the child class'
+    end
+
+    def harvest
+      load_rules
+      self.class.include_rules
+
+      CloudSpec.log.warn 'harvesting ...'
+
+      accounts = CloudSpec.config['aws']
+
+      accounts.each do |account_name, credentials|
+        process_account(account_name, credentials)
+      end
+    end
+
     def load_rules
       CloudSpec.log.debug 'loading rules ...'
 
       rules_path = File.expand_path(CloudSpec.options[:rules])
       Dir["#{rules_path}/amzn/**/*.rb"].each do |file|
         require file
+      end
+    end
+
+    def process_account(account_name, credentials = { 'access_key' => nil, 'secret_key' => nil })
+      CloudSpec.log.debug "processing account #{account_name} ..."
+      regions(credentials).each do |region|
+        objects(credentials, region).each do |object|
+          evaluate_object(account_name, region, object)
+        end
       end
     end
 

@@ -1,7 +1,7 @@
 module AMZN
   module SecurityGroupRules
     def evaluate(group)
-      # expect(group.tags['Name']).to exist
+      expect(group.name).to eq('default')
     end
   end
 end
