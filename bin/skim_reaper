@@ -1,9 +1,0 @@
-#!/usr/bin/env ruby
-
-$LOAD_PATH.unshift File.dirname(__FILE__) + '/../lib'
-
-require 'skim_reaper'
-require 'skim_reaper/cli'
-
-SkimReaper::CLI.start
-exit 0

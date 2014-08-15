@@ -16,7 +16,7 @@
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 
 require 'simplecov'
-require 'skim_reaper'
+require 'cloudspec'
 
 Fog.mock!
 

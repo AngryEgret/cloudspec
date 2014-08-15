@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
 ruby "2.1.2"
 
-# Specify your gem's dependencies in skim_reaper.gemspec
+# Specify your gem's dependencies in cloudspec.gemspec
 gemspec
