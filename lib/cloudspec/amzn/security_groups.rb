@@ -3,7 +3,7 @@ module CloudSpec
     class SecurityGroups < Base
       def self.include_rules
         CloudSpec.log.debug 'including rules ...'
-        include AMZN::SecurityGroupRules
+        include ::AMZN::SecurityGroupRules
       end
 
       def objects(credentials, region)
