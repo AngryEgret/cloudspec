@@ -6,11 +6,11 @@ require 'cloudspec/version'
 Gem::Specification.new do |spec|
   spec.name          = 'cloudspec'
   spec.version       = CloudSpec::VERSION
-  spec.authors       = ['Jonathan "Jof" Lassoff', 'Ryan Greget']
-  spec.email         = ['jof@lookout.com', 'regret@lookout.com']
+  spec.authors       = ['Ryan Greget']
+  spec.email         = ['rgreget@gmail.com']
   spec.summary       = %q{Simple tool to harvest dead weight in AWS}
   spec.description   = spec.summary
-  spec.homepage      = 'https://source.flexilis.local/ops/cloudspec'
+  spec.homepage      = 'https://github.com/AngryEgret/cloudspec'
   spec.license       = ''
 
   spec.files         = `git ls-files -z`.split("\x0")

@@ -1,5 +1,11 @@
 language: ruby
 sudo: false
 rvm:
- - '2.2.4'
-script: 'bundle exec rake ci:build'
+- 2.2.4
+script: bundle exec rake ci:build
+deploy:
+  provider: rubygems
+  api_key:
+    secure: d0cXjiVXKoRIpjKkXOGpVmil1XZkoZHRWQ+mpLwBYwxsyXppHjO/9qVp1Br1qocXRN/IFTc/Q27Hq5PDLLy0UkVKUixXQ+Qbq6GhByHBuC2Y6gxO66ChrntxX4cbw3rHc42XR/LORYB4jjIPxZY5lQ6WjNGa08i6G3LeMfmMfCM=
+  on:
+    tags: true
