@@ -1,3 +1,7 @@
 ---
-Style/LineLength:
+Metrics/LineLength:
   Max: 150
+
+AllCops:
+  Exclude:
+    - '*.gemspec'

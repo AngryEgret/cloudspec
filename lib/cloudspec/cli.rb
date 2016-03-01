@@ -78,6 +78,6 @@ module CloudSpec
     end
 
     desc 'amazon SUBCOMMAND ...ARGS', 'Evaluate Amazon Cloud Objects'
-    subcommand "amazon", CloudSpec::AMZN_CLI
+    subcommand 'amazon', CloudSpec::AMZN_CLI
   end
 end

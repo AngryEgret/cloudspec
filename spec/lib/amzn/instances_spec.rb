@@ -1,7 +1,6 @@
 describe CloudSpec::AMZN::Instances do
-  let(:instances){ CloudSpec::AMZN::Instances.new }
-  let(:credentials){ { 'access_key' => '', 'secret_key' => '' } }
-
+  let(:instances) { CloudSpec::AMZN::Instances.new }
+  let(:credentials) { { 'access_key' => '', 'secret_key' => '' } }
 
   before(:each) do
     allow(CloudSpec).to receive_message_chain(:log, :debug)
@@ -12,7 +11,7 @@ describe CloudSpec::AMZN::Instances do
         dry_run: true,
         yaml: 'config/template.yml',
         rules: './rules/',
-        verbose: false,
+        verbose: false
       }
     }
   end
@@ -32,7 +31,7 @@ describe CloudSpec::AMZN::Instances do
       instances.load_rules
       CloudSpec::AMZN::Instances.include_rules
 
-      expect( instances ).to respond_to :evaluate
+      expect(instances).to respond_to :evaluate
     end
   end
 
@@ -42,7 +41,7 @@ describe CloudSpec::AMZN::Instances do
 
   describe '.instances' do
     it 'should return an Array of instances' do
-      expect( instances.instances(credentials, 'us-east-1') ).to be_an_instance_of(Fog::Compute::AWS::Servers)
+      expect(instances.objects(credentials, 'us-east-1')).to be_an_instance_of(Fog::Compute::AWS::Servers)
     end
   end
 
