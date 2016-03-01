@@ -12,7 +12,6 @@ module CloudSpec::AMZN
     end
 
     def evaluate_object(account_name, region, object)
-      binding.pry
       CloudSpec.log.debug "Evaluating object #{object.id} ..."
       begin
         evaluate(object)
